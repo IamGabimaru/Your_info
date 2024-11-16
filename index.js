@@ -1,35 +1,32 @@
 import UAParser from 'ua-parser-js';
 
 
-(async function fetchData(params) {
+(async function fetchData() {
     const getIP = await fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .catch(err => console.error("Couldn't see IP address", err))
+        .then(response => response.json())
+        .catch(err => console.error("Couldn't see IP address", err))
+
+    const userInfo = await fetch(`http://ip-api.com/json/${getIP.ip}?fields=country,city,lat,lon,proxy&lang=ru`)
+        .then(response => response.json())
+        .catch(err => console.error(err))
 
     document.querySelector('.ip__text').textContent = 'Публичный IP-адрес:'
     document.querySelector('.ip').textContent = getIP.ip
-
-
-    const userInfo = await fetch(`http://ip-api.com/json/${getIP.ip}?fields=country,city,lat,lon,proxy&lang=ru`)
-    .then(response => response.json())
-    .catch(err => console.error(err))
-
-    document.querySelector('.country').textContent = userInfo.country
-    document.querySelector('.city').textContent = userInfo.city
-    document.querySelector('.lat').textContent = userInfo.lat
-    document.querySelector('.lon').textContent = userInfo.lon
 
     if (userInfo.proxy) {
         document.querySelector('.vpnInfo').innerHTML += `Вы используете VPN или Proxy`
     } else {
         document.querySelector('.vpnInfo').innerHTML += `Использование VPN или Proxy не обнаружено`
     }
+
+    document.querySelector('.country').textContent = userInfo.country
+    document.querySelector('.city').textContent = userInfo.city
+    document.querySelector('.lat').textContent = userInfo.lat
+    document.querySelector('.lon').textContent = userInfo.lon
 })()
 
 
-
-var parser = (new UAParser).getResult();
-
+const parser = (new UAParser).getResult();
 
 const browserData = [parser.browser.name, parser.browser.version, parser.engine.name]
 const deviceData = [parser.device.vendor, parser.device.model, parser.device.type]

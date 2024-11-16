@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .body {
     display: flex;
     flex-direction: column;
@@ -19,8 +20,8 @@
 .text-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     text-align: center;
+    gap: 5px;
 }
 
 .ip-wrapper {
