@@ -49,11 +49,9 @@ const parser = (new UAParser).getResult();
 const browserData = [parser.browser.name, parser.browser.version]
 const deviceData = [parser.device.vendor, parser.device.model]
 const osData = [parser.os.name, parser.os.version]
-const cpuData = [parser.cpu.architecture]
-document.querySelector('.ram').textContent = window.navigator.deviceMemory + ' ГБ'
-document.querySelector('.languages').textContent = window.navigator.languages
 document.querySelector('.width').textContent = window.screen.width
 document.querySelector('.height').textContent = window.screen.height
+document.querySelector('.languages').textContent = window.navigator.languages
 
 const browser = document.querySelectorAll('.browser')
 for (let i = 0; i < browserData.length; i++) {
@@ -68,9 +66,4 @@ for (let i = 0; i < deviceData.length; i++) {
 const os = document.querySelectorAll('.os')
 for (let i = 0; i < osData.length; i++) {
     osData[i] == undefined ? os[i].innerHTML = 'Не найдено' : os[i].innerHTML = osData[i]
-}
-
-const cpu = document.querySelectorAll('.cpu')
-for (let i = 0; i < cpuData.length; i++) {
-    cpuData[i] == undefined ? cpu[i].innerHTML = 'Не найдено' : cpu[i].innerHTML = cpuData[i]
 }
