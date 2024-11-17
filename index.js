@@ -47,7 +47,6 @@ import UAParser from 'ua-parser-js';
 const parser = (new UAParser).getResult();
 
 const browserData = [parser.browser.name, parser.browser.version]
-const deviceData = [parser.device.vendor, parser.device.model]
 const osData = [parser.os.name, parser.os.version]
 document.querySelector('.width').textContent = window.screen.width
 document.querySelector('.height').textContent = window.screen.height
@@ -56,11 +55,6 @@ document.querySelector('.languages').textContent = window.navigator.languages
 const browser = document.querySelectorAll('.browser')
 for (let i = 0; i < browserData.length; i++) {
     browser[i] == undefined ? browser[i].innerHTML = 'Не найдено' : browser[i].innerHTML = browserData[i]
-}
-
-const device = document.querySelectorAll('.device')
-for (let i = 0; i < deviceData.length; i++) {
-    deviceData[i] == undefined ? device[i].innerHTML = 'Не найдено' : device[i].innerHTML = deviceData[i]
 }
 
 const os = document.querySelectorAll('.os')
