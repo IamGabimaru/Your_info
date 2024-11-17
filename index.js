@@ -6,32 +6,54 @@ import UAParser from 'ua-parser-js';
         .then(response => response.json())
         .catch(err => console.error("Couldn't see IP address", err))
 
-    const userInfo = await fetch(`http://ip-api.com/json/${getIP.ip}?fields=country,city,lat,lon,proxy&lang=ru`)
+    document.querySelector('.ip__text').textContent = 'Публичный IP-адрес:'
+
+    const userInfo = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_ajtiu9YKmyLkaSHNNm2glDbZZiDQI`)
         .then(response => response.json())
         .catch(err => console.error(err))
 
-    document.querySelector('.ip__text').textContent = 'Публичный IP-адрес:'
-    document.querySelector('.ip').textContent = getIP.ip
-
-    if (userInfo.proxy) {
-        document.querySelector('.vpnInfo').innerHTML += `Вы используете VPN или Proxy`
+    if (getIP && userInfo) {
+        document.querySelector('.ip').textContent = getIP.ip
+        document.querySelector('.country').textContent = userInfo.location.country
+        document.querySelector('.city').textContent = userInfo.location.city
+        document.querySelector('.time-zone').textContent = userInfo.location.timezone
+        document.querySelector('.lat').textContent = userInfo.location.lat
+        document.querySelector('.lon').textContent = userInfo.location.lng
+    } else if (getIP) {
+        document.querySelector('.ip').textContent = getIP.ip
+        document.querySelector('.country').textContent = 'Ошибка геолокации'
+        document.querySelector('.city').textContent = 'Ошибка геолокации'
+        document.querySelector('.time-zone').textContent = 'Ошибка геолокации'
+        document.querySelector('.lat').textContent = 'Ошибка геолокации'
+        document.querySelector('.lon').textContent = 'Ошибка геолокации'
+    } else if (userInfo) {
+        document.querySelector('.ip').textContent = userInfo.ip
+        document.querySelector('.country').textContent = userInfo.location.country
+        document.querySelector('.city').textContent = userInfo.location.city
+        document.querySelector('.time-zone').textContent = userInfo.location.timezone
+        document.querySelector('.lat').textContent = userInfo.location.lat
+        document.querySelector('.lon').textContent = userInfo.location.lng
     } else {
-        document.querySelector('.vpnInfo').innerHTML += `Использование VPN или Proxy не обнаружено`
+        document.querySelector('.ip').textContent = 'Ошибка запросов'
+        document.querySelector('.country').textContent = 'Ошибка запросов'
+        document.querySelector('.city').textContent = 'Ошибка запросов'
+        document.querySelector('.time-zone').textContent = 'Ошибка запросов'
+        document.querySelector('.lat').textContent = 'Ошибка запросов'
+        document.querySelector('.lon').textContent = 'Ошибка запросов'
     }
-
-    document.querySelector('.country').textContent = userInfo.country
-    document.querySelector('.city').textContent = userInfo.city
-    document.querySelector('.lat').textContent = userInfo.lat
-    document.querySelector('.lon').textContent = userInfo.lon
 })()
 
 
 const parser = (new UAParser).getResult();
 
-const browserData = [parser.browser.name, parser.browser.version, parser.engine.name]
-const deviceData = [parser.device.vendor, parser.device.model, parser.device.type]
+const browserData = [parser.browser.name, parser.browser.version]
+const deviceData = [parser.device.vendor, parser.device.model]
 const osData = [parser.os.name, parser.os.version]
 const cpuData = [parser.cpu.architecture]
+document.querySelector('.ram').textContent = window.navigator.deviceMemory + ' ГБ'
+document.querySelector('.languages').textContent = window.navigator.languages
+document.querySelector('.width').textContent = window.screen.width
+document.querySelector('.height').textContent = window.screen.height
 
 const browser = document.querySelectorAll('.browser')
 for (let i = 0; i < browserData.length; i++) {
