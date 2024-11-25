@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .body {
     display: flex;
     flex-direction: column;
