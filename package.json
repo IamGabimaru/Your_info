@@ -1,9 +1,9 @@
 {
-  "name": "your-info",
+  "name": "your_info",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://iamgabimaru.github.io/your-info",
+  "homepage": "https://iamgabimaru.github.io/Your_info",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
